@@ -1,7 +1,8 @@
-import { UserRepository } from "../../../data/contracts/createUserRepository";
+import { UserRepository } from "../../../data/contracts/userRepository";
 import { UserDTO } from "../../../data/dto/userDTO";
 import { UserModel } from "./models/userModel";
 import mongoose from "mongoose";
+import { User } from "../../../domain/entities/User";
 
 export class MongoRepository implements UserRepository{
     constructor(){
@@ -16,5 +17,20 @@ export class MongoRepository implements UserRepository{
             email: newUser.email,
             password: newUser.password
         }
+    }
+
+    async findUserById(id: number): Promise<User>{
+        const user = await UserModel.findById(id)
+        return {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            password: user.password
+        }
+    }
+
+    async findAllUsers(): Promise<UserDTO[]>{
+        const allUsers = await UserModel.find();
+        return allUsers
     }
 }

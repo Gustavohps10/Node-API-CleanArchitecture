@@ -1,5 +1,5 @@
 import { createUserUseCase } from "../../domain/useCases/createUser";
-import {UserRepository} from "../contracts/createUserRepository"
+import {UserRepository} from "../contracts/userRepository"
 import { UserDTO } from "../dto/userDTO";
 
 export class CreateUserService implements createUserUseCase{
@@ -10,7 +10,6 @@ export class CreateUserService implements createUserUseCase{
 
     async execute(userData: UserDTO): Promise<UserDTO>{
         //!Regras de negócio
-        
         return this.userRepository.createUser(userData)
     }
 }
