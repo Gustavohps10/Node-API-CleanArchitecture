@@ -5,10 +5,13 @@ import mongoose from "mongoose";
 
 export class MongoRepository implements UserRepository{
     constructor(){
-        mongoose.connect("mongodb://localhost:27017/rest-api")
+        (async function(){
+            await mongoose.connect("mongodb://localhost:27017/rest-api")
+        })()
     }
 
     async createUser(userData: UserDTO): Promise<UserDTO>{
+
         const newUser = await UserModel.create(userData)
         return {
             id: newUser._id,

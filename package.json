@@ -17,6 +17,7 @@
     "body-parser": "^1.19.2",
     "express": "^4.17.3",
     "mongoose": "^6.2.4",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
     "nodemon": "^2.0.15",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
