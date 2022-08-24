@@ -1,6 +1,7 @@
 import { createUserUseCase } from "../../domain/useCases/createUser";
 import {UserRepository} from "../contracts/userRepository"
 import { UserDTO } from "../dto/userDTO";
+import * as EmailValidator from 'email-validator';
 
 export class CreateUserService implements createUserUseCase{
     
@@ -9,7 +10,9 @@ export class CreateUserService implements createUserUseCase{
     ){}
 
     async execute(userData: UserDTO): Promise<UserDTO>{
-        //!Regras de negócio
+        if(!EmailValidator.validate(userData.email)){
+            throw new Error("Invalid email")
+        }
         return this.userRepository.createUser(userData)
     }
 }
