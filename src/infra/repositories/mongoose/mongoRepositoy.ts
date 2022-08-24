@@ -2,7 +2,6 @@ import { UserRepository } from "../../../data/contracts/userRepository";
 import { UserDTO } from "../../../data/dto/userDTO";
 import { UserModel } from "./models/userModel";
 import mongoose from "mongoose";
-import { User } from "../../../domain/entities/User";
 
 export class MongoRepository implements UserRepository{
     constructor(){
@@ -19,14 +18,26 @@ export class MongoRepository implements UserRepository{
         }
     }
 
-    async findUserById(id: number): Promise<User>{
+    async findUserById(id: string): Promise<UserDTO>{
+        
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            throw new Error("Invalid Id")
+        } 
+        
         const user = await UserModel.findById(id)
+
+        if(!user){
+            throw new Error("User not found")
+        }
+        
         return {
             id: user._id,
             name: user.name,
             email: user.email,
             password: user.password
         }
+
+        
     }
 
     async findAllUsers(): Promise<UserDTO[]>{
