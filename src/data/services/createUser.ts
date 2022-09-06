@@ -14,7 +14,7 @@ export class CreateUserService implements createUserUseCase{
         if(!EmailValidator.validate(userData.email)){
             throw new Error("Invalid email")
         }
-
+        
         userData.password = await bcrypt.hashSync(userData.password, 10)
         return this.userRepository.createUser(userData)
     }

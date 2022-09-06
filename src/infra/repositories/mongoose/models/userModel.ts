@@ -5,7 +5,7 @@ const UserSchema = new Schema({
     name: String,
     email: {
         type: String,
-        unique: 'Two users cannot share the same email ({VALUE})'
+        unique: true
     },
     password: String
 })
